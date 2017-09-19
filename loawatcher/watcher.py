@@ -11,7 +11,6 @@ from . import settings
 from .bots.discord import DiscordBot
 from .cli import CLI
 from .logs import get_logger
-from .requests import REQUESTS, RESPONSES
 
 
 LOG = get_logger()
@@ -173,13 +172,6 @@ def handle_message(message):
     if len(msg_parts) != 3:
         return LOG.warning("Received malformed message '%s'.", message)
     msg_type, msg_subtype, obj_strings = msg_parts
-    # Check for a request response.
-    if msg_type == "RESPONSE":
-        if msg_subtype not in REQUESTS:
-            return LOG.warning("Received response from unknown request '%s' with data '%s'.", msg_subtype, obj_strings)
-        RESPONSES[msg_subtype] = obj_strings
-        return
-    # Check for other types of messages.
     subtypes = MSG_FORMATS.get(msg_type)
     if not subtypes:
         return LOG.warning("Unknown message type '%s'.", msg_type)
@@ -211,6 +203,10 @@ def handle_message(message):
                 handler(output)
 
 
+def handle_exception(loop, context):
+    print(context)
+
+
 def run():
     # Bind the UDP listener and set up a message handler.
     LOOP.run_until_complete(LOOP.create_datagram_endpoint(
@@ -219,6 +215,7 @@ def run():
     BOT.start()
     # Start the event loop.
     try:
+        LOOP.set_exception_handler(handle_exception)
         LOOP.run_forever()
     except KeyboardInterrupt:
         pass
