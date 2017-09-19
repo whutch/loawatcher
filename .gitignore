@@ -1,0 +1,22 @@
+# Python cache and bytecode
+*.py[cod]
+__pycache__/
+
+# Development
+*~
+.idea/
+.cache/
+.coverage
+.coverage-html/
+.tox
+
+# Building
+dist/
+build/
+*.egg-info/
+
+# Deployment
+.venv/
+data/
+logs/
+secrets.json
