@@ -44,5 +44,6 @@ class DiscordBot:
 
     @asyncio.coroutine
     def on_message(self, message):
-        print("{}: {}".format(message.author.display_name, message.content))
+        if message.author.display_name != "Watcher":
+            print("{}: {}".format(message.author.display_name, message.content))
         yield from self._bot.process_commands(message)

@@ -38,9 +38,9 @@ class UDPProtocol(asyncio.DatagramProtocol):
 
 class GameObj:
 
-    def __init__(self, name, obj_id, user_id=None):
-        self.name = name
+    def __init__(self, obj_id, name, user_id=None):
         self.obj_id = obj_id
+        self.name = name
         self.user_id = user_id
 
     def __format__(self, format_type):
@@ -68,13 +68,20 @@ class Loc:
 
 class ChatMessage:
 
+    _suppressed = [
+        "bank",
+        "all kill",
+        "all follow",
+        "all follow me",
+        "all attack",
+    ]
+
     def __init__(self, message):
         self.message = message
 
     def __format__(self, format_type):
         if format_type == "filtered":
-            match = re.search("bank", self.message)
-            if match:
+            if self.message.lower() in self._suppressed:
                 raise DoNotOutput
         return self.message
 
@@ -87,9 +94,11 @@ def lua_int(string):
 
 
 TYPE_CODES = {
+    "?": str,
     "i": lua_int,
     "s": str,
     "b": bool,
+    "J": str,
     "G": GameObj,
     "L": Loc,
 }
@@ -126,6 +135,16 @@ MSG_FORMATS = {
         "STEAL": {
             "discord": "{} stole {} from {} @{}.",
             "log": "{} stole {} from {} @{}.",
+        },
+    },
+    "MISC": {
+        "COMBO_LOCK_FAILURE": {
+            "discord": "{} failed to open {:long} with '{}' @{}",
+            "log": "{:long} failed to open {:long} with '{}' @{:long}",
+        },
+        "COMBO_LOCK_SUCCESS": {
+            "discord": "{} successfully opened {:long} with '{}' @{}",
+            "log": "{:long} successfully opened {:long} with '{}' @{:long}",
         },
     },
     "PLAYER": {
@@ -191,7 +210,6 @@ def handle_message(message):
     if msg_type == "CHAT":
         converted_objs[1] = ChatMessage(converted_objs[1])
     # All data has been processed.
-    LOG.debug("Received message %s:%s '%s'.", msg_type, msg_subtype, obj_strings)
     for output_type, format_string in output_formats.items():
         handler = OUTPUT_HANDLERS.get(output_type)
         if handler:
