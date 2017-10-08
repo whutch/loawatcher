@@ -74,6 +74,10 @@ class ChatMessage:
         "all follow",
         "all follow me",
         "all attack",
+        "all stay",
+        "all guard",
+        "all guard me",
+        "all release",
     ]
 
     def __init__(self, message):
@@ -163,6 +167,14 @@ MSG_FORMATS = {
         "LOGOUT": {
             "discord": "{} has logged out @{}.",
             "log": "{:long} has logged out @{:long}.",
+        },
+        "SKILL_TOKEN_CREATED": {
+            "log": "{0} received new {3} token (+{1}, {2} max).",
+            "log": "{0:long} received new {3} token (+{1}, {2} max).",
+        },
+        "SKILL_TOKEN_USED": {
+            "discord": "{0} used {1}, {2} is now {4} (+{3}).",
+            "log": "{0:long} used {1:long}, {2} is now {4} (+{3}).",
         },
     },
     "SERVER": {
