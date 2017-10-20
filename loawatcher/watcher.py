@@ -141,14 +141,32 @@ MSG_FORMATS = {
             "log": "{} stole {} from {} @{}.",
         },
     },
+    "HOUSE": {
+        "DECAY" : {
+            "discord": "House owned by account {} has decayed @{:long}.",
+            "log": "House {:long} owned by account {} has decayed @{:long}.",
+        },
+        "DESTROY" : {
+            "discord": "House owned by account {} has been destroyed @{:long}.",
+            "log": "House {:long} owned by account {} has been destroyed @{:long}.",
+        },
+        "PLACED" : {
+            "discord": "House was placed by {} @{:long}.",
+            "log": "House {:long} was placed by {:long} @{:long}.",
+        },
+        "REDEED" : {
+            "discord": "House was re-deeded by {} @{:long}, returning {}.",
+            "log": "House {:long} was re-deeded by {:long} @{:long}, returning {}.",
+        },
+    },
     "MISC": {
         "COMBO_LOCK_FAILURE": {
-            "discord": "{} failed to open {:long} with '{}' @{}",
-            "log": "{:long} failed to open {:long} with '{}' @{:long}",
+            "discord": "{} failed to open {:long} with '{}' @{}.",
+            "log": "{:long} failed to open {:long} with '{}' @{:long}.",
         },
         "COMBO_LOCK_SUCCESS": {
-            "discord": "{} successfully opened {:long} with '{}' @{}",
-            "log": "{:long} successfully opened {:long} with '{}' @{:long}",
+            "discord": "{} successfully opened {:long} with '{}' @{}.",
+            "log": "{:long} successfully opened {:long} with '{}' @{:long}.",
         },
     },
     "PLAYER": {
@@ -169,7 +187,7 @@ MSG_FORMATS = {
             "log": "{:long} has logged out @{:long}.",
         },
         "SKILL_TOKEN_CREATED": {
-            "log": "{0} received new {3} token (+{1}, {2} max).",
+            "discord": "{0} received new {3} token (+{1}, {2} max).",
             "log": "{0:long} received new {3} token (+{1}, {2} max).",
         },
         "SKILL_TOKEN_USED": {
