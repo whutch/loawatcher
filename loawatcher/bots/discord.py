@@ -10,6 +10,7 @@ import discord
 from discord.ext import commands
 
 from .. import settings
+from ..requests import request_data
 
 
 DISCORD = settings.SECRETS["discord"]

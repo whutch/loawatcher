@@ -11,6 +11,7 @@ from . import settings
 from .bots.discord import DiscordBot
 from .cli import CLI
 from .logs import get_logger
+from .requests import REQUESTS, RESPONSES
 
 
 LOG = get_logger()
@@ -221,6 +222,13 @@ def handle_message(message):
     if len(msg_parts) != 3:
         return LOG.warning("Received malformed message '%s'.", message)
     msg_type, msg_subtype, obj_strings = msg_parts
+    # Check for a request response.
+    if msg_type == "RESPONSE":
+        if msg_subtype not in REQUESTS:
+            return LOG.warning("Received response from unknown request '%s' with data '%s'.", msg_subtype, obj_strings)
+        RESPONSES[msg_subtype] = obj_strings
+        return
+    # Check for other types of messages.
     subtypes = MSG_FORMATS.get(msg_type)
     if not subtypes:
         return LOG.warning("Unknown message type '%s'.", msg_type)
