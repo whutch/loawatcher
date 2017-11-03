@@ -143,21 +143,26 @@ MSG_FORMATS = {
         },
     },
     "HOUSE": {
-        "DECAY" : {
+        "DECAY": {
             "discord": "House owned by account {1} has decayed @{2:long}.",
             "log": "House {:long} owned by account {} has decayed @{:long}.",
         },
-        "DESTROY" : {
+        "DESTROY": {
             "discord": "House owned by account {1} has been destroyed @{2:long}.",
             "log": "House {:long} owned by account {} has been destroyed @{:long}.",
         },
-        "PLACED" : {
+        "PLACED": {
             "discord": "House was placed by {1} @{2:long}.",
             "log": "House {:long} was placed by {:long} @{:long}.",
         },
-        "REDEED" : {
+        "REDEED": {
             "discord": "House was re-deeded by {1} @{2:long}, returning {3}.",
             "log": "House {:long} was re-deeded by {:long} @{:long}, returning {}.",
+        },
+    },
+    "ITEM": {
+        "TRASHED": {
+            "log": "{:long} was destroyed by {:long} @{:long}",
         },
     },
     "MISC": {
